@@ -49,8 +49,7 @@ export default class ModalBody extends Component {
       this.props.modalDuration,
       'minutes',
     )
-    modalEndtime =
-      defaultModalTimeDuration.asMilliseconds() + getBackgroundTimerEndTime()
+    modalEndtime = defaultModalTimeDuration.asMilliseconds() + getBackgroundTimerEndTime()
     this.startCountdown()
   }
 
@@ -94,8 +93,8 @@ export default class ModalBody extends Component {
         const { countdown } = this.state
 
         if (countdown.asMilliseconds() <= 0) {
-          // console.log('countdown.asMilliseconds() <= 0');
-          // console.log({ countdown: countdown.asMilliseconds() });
+          console.log('countdown.asMilliseconds() <= 0');
+          console.log({ countdown: countdown.asMilliseconds() });
 
           this.handleSessionTimeout()
         }
@@ -162,6 +161,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   countdown: {
+    fontSize: 30,
     textAlign: 'center',
   },
   desc: {
