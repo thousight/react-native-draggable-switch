@@ -50,6 +50,11 @@ export default class ModalBody extends Component {
       'minutes',
     )
     modalEndtime = defaultModalTimeDuration.asMilliseconds() + getBackgroundTimerEndTime()
+    console.log({
+      defaultModalTimeDuration,
+      modalEndtime
+    });
+    
     this.startCountdown()
   }
 
@@ -74,6 +79,10 @@ export default class ModalBody extends Component {
 
   startCountdown = () => {
     const duration = modalEndtime - getCurrentTimeStamp()
+    console.log({
+      startCountdown: duration
+    });
+    
     if (duration > 0) {
       this.setState(
         { countdown: this.initializeSessionCountdown(duration) },
@@ -102,6 +111,8 @@ export default class ModalBody extends Component {
     )
 
   handleSessionTimeout = () => {
+    console.log('handleSessionTimeout()');
+    
     this.resetCountdown()
     this.props.hideModal()
     stopSessionTimer(true)

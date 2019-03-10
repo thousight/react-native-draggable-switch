@@ -20,6 +20,8 @@ let timeout = null
 let authenticated = false
 
 export const init = (props) => {
+  console.log(props);
+  
   backgroundDuration = moment
     .duration(props.backgroundTime, 'minutes')
     .asMilliseconds()
@@ -50,14 +52,14 @@ export const startSessionTimer = (cb, interval) => {
 
   // Reset before start
   stopSessionTimer()
-  // console.log({ 'startSessionTimer()': duration });
+  console.log({ 'startSessionTimer()': duration });
   BackgroundTimer.start()
   timeout = BackgroundTimer.setInterval(currentCallback, duration)
   authenticated = true
 }
 
 export const stopSessionTimer = (unauthenticated = false) => {
-  // console.log('stopSessionTimer()');
+  console.log('stopSessionTimer()');
   BackgroundTimer.clearInterval(timeout)
   BackgroundTimer.stop()
 
