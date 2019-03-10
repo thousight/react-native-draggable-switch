@@ -80,6 +80,7 @@ export default class ModalBody extends Component {
   startCountdown = () => {
     const duration = modalEndtime - getCurrentTimeStamp()
     console.log({
+      modalEndtime,
       startCountdown: duration
     });
     
@@ -95,8 +96,7 @@ export default class ModalBody extends Component {
     }
   }
 
-  handleCountDown = () =>
-    this.setState(
+  handleCountDown = () => this.setState(
       ({ countdown }) => ({ countdown: countdown.subtract(1, 's') }),
       () => {
         const { countdown } = this.state

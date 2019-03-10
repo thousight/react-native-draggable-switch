@@ -53,6 +53,8 @@ export const startSessionTimer = (cb, interval) => {
   // Reset before start
   stopSessionTimer()
   console.log({ 'startSessionTimer()': duration });
+  console.log({ backgroundTimerEndTime });
+  
   BackgroundTimer.start()
   timeout = BackgroundTimer.setInterval(currentCallback, duration)
   authenticated = true
