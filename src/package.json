@@ -1,0 +1,27 @@
+{
+  "name": "react-native-session-timer-modal",
+  "version": "1.0.0",
+  "description": "",
+  "main": "lib/index.js",
+  "types": "types/index.d.ts",
+  "keywords": [
+    "react-native"
+  ],
+  "author": "thousight",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/react": "^16.8.7",
+    "@types/react-native": "^0.57.38",
+    "moment": "^2.24.0",
+    "prettier": "^1.16.4",
+    "react-native": "^0.57.0",
+    "react-native-background-timer": "^2.1.1",
+    "react-native-typescript-transformer": "^1.2.12",
+    "tslib": "^1.9.3",
+    "tslint": "^5.13.1",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-plugin-prettier": "^2.0.1",
+    "tslint-react": "^3.6.0",
+    "typescript": "^3.3.3333"
+  }
+}

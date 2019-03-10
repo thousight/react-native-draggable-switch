@@ -1,0 +1,17 @@
+{
+  "name": "react-native-session-timer-modal",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./src/index.js",
+  "keywords": [
+    "react-native"
+  ],
+  "author": "thousight",
+  "license": "MIT",
+  "devDependencies": {
+    "moment": "^2.24.0",
+    "react-native": "^0.57.0",
+    "react-native-background-timer": "^2.1.1",
+    "react-native-modal": "^9.0.0"
+  }
+}
