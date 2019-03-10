@@ -105,7 +105,6 @@ export default class ModalBody extends Component {
   handleSessionTimeout = () => {
     this.resetCountdown()
     this.props.hideModal()
-    this.props.logout()
   }
 
   handleYesBtnPress = () => {
