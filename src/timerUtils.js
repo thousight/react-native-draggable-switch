@@ -26,7 +26,7 @@ export const init = (props) => {
     .duration(props.backgroundTime, 'minutes')
     .asMilliseconds()
   modalDuration = moment
-    .duration(props.modalDuration, 'minutes')
+    .duration(props.modalTime, 'minutes')
     .asMilliseconds()
   defaultCallback = props.defaultCallback
   hideModal = props.hideModal

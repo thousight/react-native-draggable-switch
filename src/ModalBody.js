@@ -40,18 +40,20 @@ let modalEndtime = null
 
 export default class ModalBody extends Component {
   state = {
-    countdown: moment.duration(this.props.modalDuration, 'minutes'),
+    countdown: moment.duration(this.props.modalTime, 'minutes'),
   }
 
   componentDidMount() {
+    console.log(this.props);
+    
     AppState.addEventListener('change', this.handleAppStateChangeForCountdown)
     defaultModalTimeDuration = moment.duration(
-      this.props.modalDuration,
+      this.props.modalTime,
       'minutes',
     )
     modalEndtime = defaultModalTimeDuration.asMilliseconds() + getBackgroundTimerEndTime()
     console.log({
-      defaultModalTimeDuration,
+      defaultModalTimeDuration: defaultModalTimeDuration.asMilliseconds(),
       modalEndtime
     });
     
