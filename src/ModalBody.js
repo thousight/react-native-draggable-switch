@@ -44,18 +44,12 @@ export default class ModalBody extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props);
-    
     AppState.addEventListener('change', this.handleAppStateChangeForCountdown)
     defaultModalTimeDuration = moment.duration(
       this.props.modalTime,
       'minutes',
     )
     modalEndtime = defaultModalTimeDuration.asMilliseconds() + getBackgroundTimerEndTime()
-    console.log({
-      defaultModalTimeDuration: defaultModalTimeDuration.asMilliseconds(),
-      modalEndtime
-    });
     
     this.startCountdown()
   }
@@ -81,10 +75,6 @@ export default class ModalBody extends Component {
 
   startCountdown = () => {
     const duration = modalEndtime - getCurrentTimeStamp()
-    console.log({
-      modalEndtime,
-      startCountdown: duration
-    });
     
     if (duration > 0) {
       this.setState(
@@ -104,17 +94,12 @@ export default class ModalBody extends Component {
         const { countdown } = this.state
 
         if (countdown.asMilliseconds() <= 0) {
-          console.log('countdown.asMilliseconds() <= 0');
-          console.log({ countdown: countdown.asMilliseconds() });
-
           this.handleSessionTimeout()
         }
       },
     )
 
   handleSessionTimeout = () => {
-    console.log('handleSessionTimeout()');
-    
     this.resetCountdown()
     this.props.hideModal()
     stopSessionTimer(true)
@@ -124,7 +109,6 @@ export default class ModalBody extends Component {
     stopSessionTimer()
     this.resetCountdown()
     this.props.hideModal()
-    this.props.refreshIToken()
   }
 
   resetCountdown = () =>
@@ -134,18 +118,24 @@ export default class ModalBody extends Component {
 
   render() {
     const { countdown } = this.state
+    const {
+      modalTitle,
+      modalSubtitle,
+      modalNoText,
+      modalYesText,
+    } = this.props
 
     return (
       <View style={styles.modalContainer}>
         <View style={styles.textContainer}>
           <Text style={styles.title} accessible={true}>
-            Title
+            {modalTitle}
           </Text>
           <Text style={styles.countdown} accessible={true}>
             {formatCountdown(countdown)}
           </Text>
           <Text style={styles.desc} accessible={true}>
-            Subheader
+            {modalSubtitle}
           </Text>
         </View>
         <View style={styles.btnRow}>
@@ -153,13 +143,13 @@ export default class ModalBody extends Component {
             onPress={this.handleSessionTimeout}
             style={[styles.modalBtn, styles.noBtn]}
           >
-            <Text style={styles.modalBtnText}>NO</Text>
+            <Text style={styles.modalBtnText}>{modalNoText}</Text>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={this.handleYesBtnPress}
             style={styles.modalBtn}
           >
-            <Text style={styles.modalBtnText}>YES</Text>
+            <Text style={styles.modalBtnText}>{modalYesText}</Text>
           </TouchableOpacity>
         </View>
       </View>
