@@ -1,4 +1,4 @@
-import { ITimingModalProps } from './SessionTimerModal';
+import { ISessionTimerModalProps } from './SessionTimerModal';
 /**
  * This timer is currently used for user session timeouts.
  * Please be careful to use this for other purposes
@@ -6,7 +6,7 @@ import { ITimingModalProps } from './SessionTimerModal';
  * run at once so you could potentially kill the user session
  * timeout event.
  */
-interface ITimeUtilsInitPops extends ITimingModalProps {
+interface ITimeUtilsInitPops extends ISessionTimerModalProps {
     defaultCallback(): any;
     hideModal(): any;
 }

@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import moment, { Duration } from 'moment';
-import { ITimingModalProps } from './SessionTimerModal';
-interface IModalBodyProps extends ITimingModalProps {
+import { ISessionTimerModalProps } from './SessionTimerModal';
+interface IModalBodyProps extends ISessionTimerModalProps {
     hideModal(): void;
 }
 interface IModalBodyStates {
@@ -19,6 +19,7 @@ export declare class ModalBody extends Component<IModalBodyProps, IModalBodyStat
     handleCountDown: () => void;
     handleSessionTimeout: () => void;
     handleYesBtnPress: () => void;
+    handleNoBtnPress: () => void;
     resetCountdown: () => void;
     render(): JSX.Element;
 }
