@@ -6,7 +6,21 @@ import ModalBody from './ModalBody'
 
 import { init, handleAppStateChangeForBackgroundTimer } from './timerUtils'
 
-export default class TimingModal extends Component {
+export interface ITimingModalProps {
+  backgroundTime: number
+  modalTime: number
+  modalTitle: string
+  modalSubtitle: string
+  modalNoText: string
+  modalYesText: string
+  timerEndCallback?(): any,
+}
+
+interface ITimingModalStates {
+  isShowModal: boolean
+}
+
+export default class TimingModal extends Component<ITimingModalProps, ITimingModalStates> {
   state = {
     isShowModal: false,
   }

@@ -7,20 +7,30 @@ import {
   AppState,
   Text,
 } from 'react-native'
-import moment from 'moment'
+import moment, { Duration } from 'moment'
+
 import {
   startSessionTimer,
   stopSessionTimer,
   getBackgroundTimerEndTime,
   getCurrentTimeStamp,
 } from './timerUtils'
+import { ITimingModalProps } from './TimingModal'
 
-const formatCountdown = (countdown) => {
+interface IModalBodyProps extends ITimingModalProps {
+  hideModal(): void
+}
+
+interface ITimingModalStates {
+  countdown: Duration
+}
+
+const formatCountdown = (countdown: Duration) => {
   let result = ''
 
   if (countdown && moment.isDuration(countdown)) {
-    let minutes = countdown.minutes()
-    let seconds = countdown.seconds()
+    let minutes: any = countdown.minutes()
+    let seconds: any = countdown.seconds()
 
     if (minutes < 10) {
       minutes = `0${minutes}`
@@ -35,10 +45,10 @@ const formatCountdown = (countdown) => {
   return result
 }
 
-let defaultModalTimeDuration = null
-let modalEndtime = null
+let defaultModalTimeDuration: Duration
+let modalEndtime: number = 0
 
-export default class ModalBody extends Component {
+export default class ModalBody extends Component<IModalBodyProps, ITimingModalStates> {
   state = {
     countdown: moment.duration(this.props.modalTime, 'minutes'),
   }
@@ -61,14 +71,14 @@ export default class ModalBody extends Component {
     )
   }
 
-  handleAppStateChangeForCountdown = nextAppState => {
+  handleAppStateChangeForCountdown = (nextAppState: string) => {
     if (nextAppState === 'active') {
       this.startCountdown()
     }
   }
 
-  initializeSessionCountdown = (duration) => {
-    return duration
+  initializeSessionCountdown = (duration: number): Duration => {
+    return duration >= 0
       ? moment.duration(duration, 'milliseconds')
       : defaultModalTimeDuration
   }
@@ -113,7 +123,7 @@ export default class ModalBody extends Component {
 
   resetCountdown = () =>
     this.setState({
-      countdown: this.initializeSessionCountdown(null),
+      countdown: this.initializeSessionCountdown(-1),
     })
 
   render() {
