@@ -19,7 +19,7 @@ let backgroundDuration: number = moment.duration(27, 'minutes').asMilliseconds()
 let modalDuration: number = moment.duration(3, 'minutes').asMilliseconds()
 let defaultCallback: any = null
 let currentCallback: any = null
-let timerEndCallback: any = null
+let onTimerEnd: any = null
 let backgroundTimerEndTime: number = 0
 let hideModal: any = null
 let timeout: number
@@ -34,7 +34,7 @@ export const init = (props: ITimeUtilsInitPops) => {
     .asMilliseconds()
   defaultCallback = props.defaultCallback
   hideModal = props.hideModal
-  timerEndCallback = props.timerEndCallback
+  onTimerEnd = props.onTimerEnd
 }
 
 export const getCurrentTimeStamp = () => new Date().getTime()
@@ -61,13 +61,11 @@ export const startSessionTimer = (cb: any, interval: number) => {
   authenticated = true
 }
 
-export const stopSessionTimer = (unauthenticated = false) => {
+export const stopSessionTimer = (isStillAuthed: boolean = true) => {
   BackgroundTimer.clearInterval(timeout)
   BackgroundTimer.stop()
 
-  if (unauthenticated) {
-    authenticated = false
-  }
+  authenticated = isStillAuthed
 }
 
 export function handleAppStateChangeForBackgroundTimer(nextAppState: string) {
@@ -81,8 +79,8 @@ export function handleAppStateChangeForBackgroundTimer(nextAppState: string) {
             currentCallback,
             backgroundTimerEndTime - currentTime,
           )
-        } else if (modalDuration + backgroundTimerEndTime - currentTime <= 0 && timerEndCallback) {
-          timerEndCallback()
+        } else if (modalDuration + backgroundTimerEndTime - currentTime <= 0 && onTimerEnd) {
+          onTimerEnd()
         } else {
           currentCallback()
         }

@@ -21,7 +21,7 @@ export interface ISessionTimerModalProps {
   buttonTextStyle: TextStyle
   onModalConfirmPress?(): any
   onModalCancelPress?(): any
-  timerEndCallback?(): any
+  onTimerEnd?(): any
 }
 
 interface ITimingModalStates {
