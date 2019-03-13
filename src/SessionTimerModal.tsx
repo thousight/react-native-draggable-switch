@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { AppState, View, StyleSheet, TextStyle } from 'react-native'
+import { AppState, View, StyleSheet, TextStyle, ViewStyle } from 'react-native'
 import Modal from 'react-native-modal'
 
 import { ModalBody } from './ModalBody'
@@ -7,19 +7,37 @@ import { ModalBody } from './ModalBody'
 import { init, handleAppStateChangeForBackgroundTimer } from './timerUtils'
 
 export interface ISessionTimerModalProps {
-  backgroundTime: number
-  modalTime: number
+  backgroundTime?: number
+  modalTime?: number
+  containerStyle?: ViewStyle
+  title?: string
+  titleStyle?: TextStyle
+  subtitle?: string
+  subtitleStyle?: TextStyle
+  countdownTextStyle?: TextStyle
+  confirmText?: string
+  cancelText?: string
+  buttonTextStyle?: TextStyle
+  onModalConfirmPress?(): any
+  onModalCancelPress?(): any
+  onTimerEnd?(): any
+}
 
-  modalTitle: string
-  modalTitleStyle: TextStyle
-  modalSubtitle: string
-  modalSubtitleStyle: TextStyle
-  modalYesText: string
-  modalNoText: string
-  buttonTextStyle: TextStyle
-  onModalYesPress?(): any
-  onModalNoPress?(): any
-  timerEndCallback?(): any
+const defaultProps = {
+  backgroundTime: 9,
+  modalTime: 1,
+  containerStyle: null,
+  title: '',
+  titleStyle: null,
+  subtitle: '',
+  subtitleStyle: null,
+  countdownTextStyle: null,
+  confirmText: 'Confirm',
+  cancelText: 'Cancel',
+  buttonTextStyle: null,
+  onModalConfirmPress: () => {},
+  onModalCancelPress: () => {},
+  onTimerEnd: () => {},
 }
 
 interface ITimingModalStates {
@@ -27,6 +45,8 @@ interface ITimingModalStates {
 }
 
 export class SessionTimerModal extends Component<ISessionTimerModalProps, ITimingModalStates> {
+  static defaultProps = defaultProps
+
   state = {
     isShowModal: false,
   }
