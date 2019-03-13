@@ -94,7 +94,7 @@ export class ModalBody extends Component<IModalBodyProps, IModalBodyStates> {
         },
       )
     } else {
-      this.handleSessionTimeout()
+      this.handleSessionTimeout(true)
     }
   }
 
@@ -104,28 +104,29 @@ export class ModalBody extends Component<IModalBodyProps, IModalBodyStates> {
         const { countdown } = this.state
 
         if (countdown.asMilliseconds() <= 0) {
-          this.handleSessionTimeout()
+          this.handleSessionTimeout(true)
         }
       },
     )
 
-  handleSessionTimeout = () => {
+  handleSessionTimeout = (unauthenticated: boolean, manualPress?: boolean) => {
     this.resetCountdown()
     this.props.hideModal()
-    stopSessionTimer(true)
+    stopSessionTimer(unauthenticated)
+    if (this.props.timerEndCallback && unauthenticated && !manualPress) {
+      this.props.timerEndCallback()
+    }
   }
 
   handleYesBtnPress = () => {
-    stopSessionTimer()
-    this.resetCountdown()
-    this.props.hideModal()
+    this.handleSessionTimeout(false)
     if (this.props.onModalYesPress) {
       this.props.onModalYesPress()
     }
   }
 
   handleNoBtnPress = () => {
-    this.handleSessionTimeout()
+    this.handleSessionTimeout(true, true)
     if (this.props.onModalNoPress) {
       this.props.onModalNoPress()
     }

@@ -17,7 +17,7 @@ export declare class ModalBody extends Component<IModalBodyProps, IModalBodyStat
     initializeSessionCountdown: (duration: number) => moment.Duration;
     startCountdown: () => void;
     handleCountDown: () => void;
-    handleSessionTimeout: () => void;
+    handleSessionTimeout: (unauthenticated: boolean, manualPress?: boolean | undefined) => void;
     handleYesBtnPress: () => void;
     handleNoBtnPress: () => void;
     resetCountdown: () => void;
