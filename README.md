@@ -52,19 +52,19 @@ Follow [this readme](https://github.com/ocetnik/react-native-background-timer/bl
 
 ## Props
 
-| Prop | Explanation | Type | Required | Default |
-| ------- | ------- | ------- | ------- | ------- |
-| backgroundTime | The number of **minutes** that the modal will be counting on the background, it will be the time period between `startSessionTimer` called and the counting modal showing up. | number | true | 9 |
-| modalTime | The number of **minutes** that the modal will be counting after it shows up. | number | true | 1 |
-| title | Title of the modal. | string | false | '' |
-| subtitle | Subtitle of the modal. | string | false | '' |
-| confirmText | Text for the confirm button. | string | false | 'Confirm' |
-| cancelText | Text for the cancel button. | string | false | 'Cancel' |
-| onModalConfirmPress | The callback function called when confirm button is pressed, this is usually the place to call refresh user token. Make sure to call `startSessionTimer` at the end of the successful token refresh, since pressing any buttons on the modal will stop session timer. | function | false | () => {} |
-| onModalCancelPress | The callback function called when cancel button is pressed, this is usually the place to call user log out. | function | false | () => {} |
-| onTimerEnd | The callback function called when the modal counts to 0 if the user is in foreground, and when the user puts your app back to foreground from background after the time modal countdown is supposed to end. | function | false | () => {} |
-| containerStyle | The styles for the modal card. | ViewStyle | false | null |
-| titleStyle | The styles for the title. | TextStyle | false | null |
-| subtitleStyle | The styles for the subtitle. | TextStyle | false | null |
-| countdownTextStyle | The styles for the countdown number. | TextStyle | false | null |
-| buttonTextStyle | The styles for the cancel and confirm button texts. | TextStyle | false | null |
+| Prop | Explanation | Type | Default |
+| ------- | ------- | ------- | ------- |
+| backgroundTime | The number of **minutes** that the modal will be counting on the background, it will be the time period between `startSessionTimer` called and the counting modal showing up. | number | 9 |
+| modalTime | The number of **minutes** that the modal will be counting after it shows up. | number | 1 |
+| title | Title of the modal. | string | '' |
+| subtitle | Subtitle of the modal. | string | '' |
+| confirmText | Text for the confirm button. | string | 'Confirm' |
+| cancelText | Text for the cancel button. | string | 'Cancel' |
+| onModalConfirmPress | The callback function called when confirm button is pressed, this is usually the place to call refresh user token. Make sure to call `startSessionTimer` at the end of the successful token refresh, since pressing any buttons on the modal will stop session timer. | function | () => {} |
+| onModalCancelPress | The callback function called when cancel button is pressed, this is usually the place to call user log out. | function | () => {} |
+| onTimerEnd | The callback function called when the modal counts to 0 if the user is in foreground, and when the user puts your app back to foreground from background after the time modal countdown is supposed to end. | function | () => {} |
+| containerStyle | The styles for the modal card. | ViewStyle | null |
+| titleStyle | The styles for the title. | TextStyle | null |
+| subtitleStyle | The styles for the subtitle. | TextStyle | null |
+| countdownTextStyle | The styles for the countdown number. | TextStyle | null |
+| buttonTextStyle | The styles for the cancel and confirm button texts. | TextStyle | null |

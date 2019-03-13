@@ -7,9 +7,8 @@ import { ModalBody } from './ModalBody'
 import { init, handleAppStateChangeForBackgroundTimer } from './timerUtils'
 
 export interface ISessionTimerModalProps {
-  backgroundTime: number
-  modalTime: number
-
+  backgroundTime?: number
+  modalTime?: number
   containerStyle?: ViewStyle
   title?: string
   titleStyle?: TextStyle
@@ -27,6 +26,7 @@ export interface ISessionTimerModalProps {
 const defaultProps = {
   backgroundTime: 9,
   modalTime: 1,
+  containerStyle: null,
   title: '',
   titleStyle: null,
   subtitle: '',
