@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { AppState, View, StyleSheet, TextStyle } from 'react-native'
+import { AppState, View, StyleSheet, TextStyle, ViewStyle } from 'react-native'
 import Modal from 'react-native-modal'
 
 import { ModalBody } from './ModalBody'
@@ -10,15 +10,17 @@ export interface ISessionTimerModalProps {
   backgroundTime: number
   modalTime: number
 
-  modalTitle: string
-  modalTitleStyle: TextStyle
-  modalSubtitle: string
-  modalSubtitleStyle: TextStyle
-  modalYesText: string
-  modalNoText: string
+  containerStyle: ViewStyle
+  title: string
+  titleStyle: TextStyle
+  subtitle: string
+  subtitleStyle: TextStyle
+  countdownTextStyle: TextStyle
+  confirmText: string
+  cancelText: string
   buttonTextStyle: TextStyle
-  onModalYesPress?(): any
-  onModalNoPress?(): any
+  onModalConfirmPress?(): any
+  onModalCancelPress?(): any
   timerEndCallback?(): any
 }
 
