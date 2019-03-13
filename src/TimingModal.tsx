@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { AppState, View, StyleSheet } from 'react-native'
 import Modal from 'react-native-modal'
 
-import ModalBody from './ModalBody'
+import { ModalBody } from './ModalBody'
 
 import { init, handleAppStateChangeForBackgroundTimer } from './timerUtils'
 
@@ -20,7 +20,7 @@ interface ITimingModalStates {
   isShowModal: boolean
 }
 
-export default class TimingModal extends Component<ITimingModalProps, ITimingModalStates> {
+export class TimingModal extends Component<ITimingModalProps, ITimingModalStates> {
   state = {
     isShowModal: false,
   }

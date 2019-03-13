@@ -21,7 +21,7 @@ interface IModalBodyProps extends ITimingModalProps {
   hideModal(): void
 }
 
-interface ITimingModalStates {
+interface IModalBodyStates {
   countdown: Duration
 }
 
@@ -48,7 +48,7 @@ const formatCountdown = (countdown: Duration) => {
 let defaultModalTimeDuration: Duration
 let modalEndtime: number = 0
 
-export default class ModalBody extends Component<IModalBodyProps, ITimingModalStates> {
+export class ModalBody extends Component<IModalBodyProps, IModalBodyStates> {
   state = {
     countdown: moment.duration(this.props.modalTime, 'minutes'),
   }
