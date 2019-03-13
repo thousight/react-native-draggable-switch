@@ -114,21 +114,21 @@ export class ModalBody extends Component<IModalBodyProps, IModalBodyStates> {
     this.props.hideModal()
     stopSessionTimer(unauthenticated)
     if (this.props.timerEndCallback && unauthenticated && !manualPress) {
-      this.props.timerEndCallback()
+      setTimeout(this.props.timerEndCallback, 100)
     }
   }
 
   handleYesBtnPress = () => {
     this.handleSessionTimeout(false)
     if (this.props.onModalYesPress) {
-      this.props.onModalYesPress()
+      setTimeout(this.props.onModalYesPress, 100)
     }
   }
 
   handleNoBtnPress = () => {
     this.handleSessionTimeout(true, true)
     if (this.props.onModalNoPress) {
-      this.props.onModalNoPress()
+      setTimeout(this.props.onModalNoPress, 100)
     }
   }
 
