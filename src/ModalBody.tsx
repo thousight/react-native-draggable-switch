@@ -15,9 +15,9 @@ import {
   getBackgroundTimerEndTime,
   getCurrentTimeStamp,
 } from './timerUtils'
-import { ITimingModalProps } from './TimingModal'
+import { ISessionTimerModalProps } from './SessionTimerModal'
 
-interface IModalBodyProps extends ITimingModalProps {
+interface IModalBodyProps extends ISessionTimerModalProps {
   hideModal(): void
 }
 
@@ -119,6 +119,16 @@ export class ModalBody extends Component<IModalBodyProps, IModalBodyStates> {
     stopSessionTimer()
     this.resetCountdown()
     this.props.hideModal()
+    if (this.props.onModalYesPress) {
+      this.props.onModalYesPress()
+    }
+  }
+
+  handleNoBtnPress = () => {
+    this.handleSessionTimeout()
+    if (this.props.onModalNoPress) {
+      this.props.onModalNoPress()
+    }
   }
 
   resetCountdown = () =>
@@ -150,7 +160,7 @@ export class ModalBody extends Component<IModalBodyProps, IModalBodyStates> {
         </View>
         <View style={styles.btnRow}>
           <TouchableOpacity
-            onPress={this.handleSessionTimeout}
+            onPress={this.handleNoBtnPress}
             style={[styles.modalBtn, styles.noBtn]}
           >
             <Text style={styles.modalBtnText}>{modalNoText}</Text>

@@ -1,10 +1,13 @@
 {
   "name": "react-native-session-timer-modal",
   "version": "1.0.0",
-  "description": "",
+  "description": "A customizable session timer modal that times on the background.",
   "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "keywords": [
-    "react-native"
+    "react-native",
+    "session-timer",
+    "modal"
   ],
   "author": "thousight",
   "license": "MIT",

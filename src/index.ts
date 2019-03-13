@@ -1,2 +1,2 @@
-export * from './timerUtils'
-export * from './TimingModal'
+export { startSessionTimer, stopSessionTimer } from './timerUtils'
+export { SessionTimerModal } from './SessionTimerModal'

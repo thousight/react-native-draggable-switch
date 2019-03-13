@@ -1,7 +1,7 @@
 import BackgroundTimer from 'react-native-background-timer'
 import moment from 'moment'
 
-import { ITimingModalProps } from './TimingModal'
+import { ISessionTimerModalProps } from './SessionTimerModal'
 
 /**
  * This timer is currently used for user session timeouts.
@@ -10,7 +10,7 @@ import { ITimingModalProps } from './TimingModal'
  * run at once so you could potentially kill the user session
  * timeout event.
  */
-interface ITimeUtilsInitPops extends ITimingModalProps {
+interface ITimeUtilsInitPops extends ISessionTimerModalProps {
   defaultCallback(): any
   hideModal(): any
 }

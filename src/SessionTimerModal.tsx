@@ -1,26 +1,32 @@
 import React, { Component } from 'react'
-import { AppState, View, StyleSheet } from 'react-native'
+import { AppState, View, StyleSheet, TextStyle } from 'react-native'
 import Modal from 'react-native-modal'
 
 import { ModalBody } from './ModalBody'
 
 import { init, handleAppStateChangeForBackgroundTimer } from './timerUtils'
 
-export interface ITimingModalProps {
+export interface ISessionTimerModalProps {
   backgroundTime: number
   modalTime: number
+
   modalTitle: string
+  modalTitleStyle: TextStyle
   modalSubtitle: string
-  modalNoText: string
+  modalSubtitleStyle: TextStyle
   modalYesText: string
-  timerEndCallback?(): any,
+  modalNoText: string
+  buttonTextStyle: TextStyle
+  onModalYesPress?(): any
+  onModalNoPress?(): any
+  timerEndCallback?(): any
 }
 
 interface ITimingModalStates {
   isShowModal: boolean
 }
 
-export class TimingModal extends Component<ITimingModalProps, ITimingModalStates> {
+export class SessionTimerModal extends Component<ISessionTimerModalProps, ITimingModalStates> {
   state = {
     isShowModal: false,
   }
