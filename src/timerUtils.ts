@@ -1,6 +1,8 @@
 import BackgroundTimer from 'react-native-background-timer'
 import moment from 'moment'
 
+import { ITimingModalProps } from './TimingModal'
+
 /**
  * This timer is currently used for user session timeouts.
  * Please be careful to use this for other purposes
@@ -8,18 +10,22 @@ import moment from 'moment'
  * run at once so you could potentially kill the user session
  * timeout event.
  */
+interface ITimeUtilsInitPops extends ITimingModalProps {
+  defaultCallback(): any
+  hideModal(): any
+}
 
-let backgroundDuration = moment.duration(27, 'minutes').asMilliseconds()
-let modalDuration = moment.duration(3, 'minutes').asMilliseconds()
-let defaultCallback = null
-let currentCallback = null
-let timerEndCallback = null
-let backgroundTimerEndTime = null
-let hideModal = null
-let timeout = null
-let authenticated = false
+let backgroundDuration: number = moment.duration(27, 'minutes').asMilliseconds()
+let modalDuration: number = moment.duration(3, 'minutes').asMilliseconds()
+let defaultCallback: any = null
+let currentCallback: any = null
+let timerEndCallback: any = null
+let backgroundTimerEndTime: number = 0
+let hideModal: any = null
+let timeout: number
+let authenticated: boolean = false
 
-export const init = (props) => {
+export const init = (props: ITimeUtilsInitPops) => {
   backgroundDuration = moment
     .duration(props.backgroundTime, 'minutes')
     .asMilliseconds()
@@ -35,7 +41,7 @@ export const getCurrentTimeStamp = () => new Date().getTime()
 
 export const getBackgroundTimerEndTime = () => backgroundTimerEndTime
 
-export const startSessionTimer = (cb, interval) => {
+export const startSessionTimer = (cb: any, interval: number) => {
   const duration = interval || backgroundDuration
   if (!cb) {
     backgroundTimerEndTime = getCurrentTimeStamp() + duration
@@ -64,7 +70,7 @@ export const stopSessionTimer = (unauthenticated = false) => {
   }
 }
 
-export function handleAppStateChangeForBackgroundTimer(nextAppState) {
+export function handleAppStateChangeForBackgroundTimer(nextAppState: string) {
   if (authenticated) {
     if (nextAppState === 'active') {
       // only handle background timer
