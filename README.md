@@ -32,7 +32,7 @@ Follow [this readme](https://github.com/ocetnik/react-native-background-timer/bl
 			  containerStyle={styles.container}
 			  title="Session Timer"
 			  titleStyle={styles.title}
-			  subtitle="Your session will be ending soon!"
+			  subtitle="Your session will be ending soon! Wanna stay in the app?"
 			  subtitleStyle={styles.subtitle}
 			  countdownTextStyle={styles.countdown}
 			  confirmText="YES"
@@ -52,19 +52,19 @@ Follow [this readme](https://github.com/ocetnik/react-native-background-timer/bl
 
 ## Props
 
-| Prop | Explanation | Type | Required |
-| ------------- | ------------- | ----- | ----- |
-| backgroundTime | The number of **minutes** that the modal will be counting on the background, it will be the time period between `startSessionTimer` called and the counting modal showing up. | number | true |
-| modalTime | The number of **minutes** that the modal will be counting after it shows up. | number | true |
-| title | Title of the modal. | string | false |
-| subtitle | Subtitle of the modal. | string | false |
-| confirmText | Text for the confirm button. | string | false |
-| cancelText | Text for the cancel button. | string | false |
-| onModalConfirmPress | The callback function called when confirm button is pressed, this is usually the place to call refresh user token. Make sure to call `startSessionTimer` at the end of the successful token refresh, since pressing any buttons on the modal will stop session timer. | function | false |
-| onModalCancelPress | The callback function called when cancel button is pressed, this is usually the place to call user log out. | function | false |
-| onTimerEnd | The callback function called when the modal counts to 0 if the user is in foreground, and when the user puts your app back to foreground from background after the time modal countdown is supposed to end. | function | false |
-| containerStyle | The styles for the modal card. | ViewStyle | false |
-| titleStyle | The styles for the title. | TextStyle | false |
-| subtitleStyle | The styles for the subtitle. | TextStyle | false |
-| countdownTextStyle | The styles for the countdown number. | TextStyle | false |
-| buttonTextStyle | The styles for the cancel and confirm button texts. | TextStyle | false |
+| Prop | Explanation | Type | Required | Default |
+| ------- | ------- | ------- | ------- | ------- |
+| backgroundTime | The number of **minutes** that the modal will be counting on the background, it will be the time period between `startSessionTimer` called and the counting modal showing up. | number | true | 9 |
+| modalTime | The number of **minutes** that the modal will be counting after it shows up. | number | true | 1 |
+| title | Title of the modal. | string | false | '' |
+| subtitle | Subtitle of the modal. | string | false | '' |
+| confirmText | Text for the confirm button. | string | false | 'Confirm' |
+| cancelText | Text for the cancel button. | string | false | 'Cancel' |
+| onModalConfirmPress | The callback function called when confirm button is pressed, this is usually the place to call refresh user token. Make sure to call `startSessionTimer` at the end of the successful token refresh, since pressing any buttons on the modal will stop session timer. | function | false | () => {} |
+| onModalCancelPress | The callback function called when cancel button is pressed, this is usually the place to call user log out. | function | false | () => {} |
+| onTimerEnd | The callback function called when the modal counts to 0 if the user is in foreground, and when the user puts your app back to foreground from background after the time modal countdown is supposed to end. | function | false | () => {} |
+| containerStyle | The styles for the modal card. | ViewStyle | false | null |
+| titleStyle | The styles for the title. | TextStyle | false | null |
+| subtitleStyle | The styles for the subtitle. | TextStyle | false | null |
+| countdownTextStyle | The styles for the countdown number. | TextStyle | false | null |
+| buttonTextStyle | The styles for the cancel and confirm button texts. | TextStyle | false | null |
