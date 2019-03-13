@@ -82,7 +82,7 @@ export function handleAppStateChangeForBackgroundTimer(nextAppState: string) {
             backgroundTimerEndTime - currentTime,
           )
         } else if (modalDuration + backgroundTimerEndTime - currentTime <= 0 && timerEndCallback) {
-          setTimeout(timerEndCallback, 100)
+          timerEndCallback()
         } else {
           currentCallback()
         }
