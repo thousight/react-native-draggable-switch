@@ -4,7 +4,7 @@ import Modal from 'react-native-modal'
 
 import { ModalBody } from './ModalBody'
 
-import { init, handleAppStateChangeForBackgroundTimer } from './timerUtils'
+import { init, handleAppStateChangeForBackgroundTimer } from '../utils'
 
 export interface ISessionTimerModalProps {
   backgroundTime?: number
@@ -40,11 +40,11 @@ const defaultProps = {
   onTimerEnd: () => {},
 }
 
-interface ITimingModalStates {
+interface ISessionTimerModalStates {
   isShowModal: boolean
 }
 
-export class SessionTimerModal extends Component<ISessionTimerModalProps, ITimingModalStates> {
+export class SessionTimerModal extends Component<ISessionTimerModalProps, ISessionTimerModalStates> {
   static defaultProps = defaultProps
 
   state = {
@@ -60,6 +60,13 @@ export class SessionTimerModal extends Component<ISessionTimerModalProps, ITimin
     AppState.addEventListener('change', handleAppStateChangeForBackgroundTimer)
   }
 
+  shouldComponentUpdate(
+    _: ISessionTimerModalProps,
+    { isShowModal: prevShowModal }: ISessionTimerModalStates
+  ) {
+    return this.state.isShowModal !== prevShowModal
+  }
+
   componentWillUnmount() {
     AppState.removeEventListener(
       'change',
@@ -69,8 +76,9 @@ export class SessionTimerModal extends Component<ISessionTimerModalProps, ITimin
 
   hideModal = () => this.setState({ isShowModal: false })
 
-  toggleSessionTimerModal = () =>
-    this.setState(({ isShowModal }) => ({ isShowModal: !isShowModal }))
+  toggleSessionTimerModal = () => this.setState(({ isShowModal }) => ({
+    isShowModal: !isShowModal
+  }))
 
   render() {
     const { isShowModal } = this.state

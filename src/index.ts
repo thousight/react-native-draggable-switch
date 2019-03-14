@@ -1,2 +1,2 @@
-export { startSessionTimer, stopSessionTimer } from './timerUtils'
-export { SessionTimerModal } from './SessionTimerModal'
+export { startSessionTimer, stopSessionTimer } from './utils'
+export { SessionTimerModal } from './components/SessionTimerModal'

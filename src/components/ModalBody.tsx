@@ -14,7 +14,7 @@ import {
   stopSessionTimer,
   getBackgroundTimerEndTime,
   getCurrentTimeStamp,
-} from './timerUtils'
+} from '../utils'
 import { ISessionTimerModalProps } from './SessionTimerModal'
 
 interface IModalBodyProps extends ISessionTimerModalProps {
@@ -89,9 +89,7 @@ export class ModalBody extends Component<IModalBodyProps, IModalBodyStates> {
     if (duration > 0) {
       this.setState(
         { countdown: this.initializeSessionCountdown(duration) },
-        () => {
-          startSessionTimer(this.handleCountDown, 1000)
-        },
+        () => startSessionTimer(this.handleCountDown, 1000),
       )
     } else {
       this.handleSessionTimeout(false)
@@ -101,9 +99,7 @@ export class ModalBody extends Component<IModalBodyProps, IModalBodyStates> {
   handleCountDown = () => this.setState(
       ({ countdown }) => ({ countdown: countdown.subtract(1, 's') }),
       () => {
-        const { countdown } = this.state
-
-        if (countdown.asMilliseconds() <= 0) {
+        if (this.state.countdown.asMilliseconds() <= 0) {
           this.handleSessionTimeout(false)
         }
       },

@@ -1,15 +1,8 @@
 import BackgroundTimer from 'react-native-background-timer'
 import moment from 'moment'
 
-import { ISessionTimerModalProps } from './SessionTimerModal'
+import { ISessionTimerModalProps } from './components/SessionTimerModal'
 
-/**
- * This timer is currently used for user session timeouts.
- * Please be careful to use this for other purposes
- * because the library only allows one background process to
- * run at once so you could potentially kill the user session
- * timeout event.
- */
 interface ITimeUtilsInitPops extends ISessionTimerModalProps {
   defaultCallback(): any
   hideModal(): any
@@ -58,7 +51,6 @@ export const startSessionTimer = (cb: any, interval: number) => {
   stopSessionTimer()
   BackgroundTimer.start()
   timeout = BackgroundTimer.setInterval(currentCallback, duration)
-  authenticated = true
 }
 
 export const stopSessionTimer = (isStillAuthed: boolean = true) => {
@@ -86,7 +78,7 @@ export function handleAppStateChangeForBackgroundTimer(nextAppState: string) {
         }
       }
     } else {
-      stopSessionTimer()
+      stopSessionTimer(false)
     }
   } else {
     hideModal()

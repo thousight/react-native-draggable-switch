@@ -12,7 +12,7 @@
   "author": "thousight",
   "license": "MIT",
   "scripts": {
-    "build": "tsc"
+    "build": "rm -rf ./lib && tsc"
   },
   "devDependencies": {
     "@types/react-native": "^0.57.40",
