@@ -14,7 +14,7 @@
   "scripts": {
     "build": "rm -rf ./lib && tsc"
   },
-  "devDependencies": {
+  "peerDependencies": {
     "@types/react-native": "^0.57.40",
     "@types/react-native-background-timer": "^2.0.0",
     "moment": "^2.24.0",
