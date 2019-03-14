@@ -62,10 +62,10 @@ export const stopSessionTimer = (isStillAuthed: boolean = true) => {
 
 export function handleAppStateChangeForBackgroundTimer(nextAppState: string) {
   if (authenticated) {
-    if (nextAppState === 'active') {
+    if (nextAppState === 'active' && currentCallback === defaultCallback && backgroundTimerEndTime) {
       // only handle background timer
-      if (currentCallback === defaultCallback && backgroundTimerEndTime) {
         const currentTime = getCurrentTimeStamp()
+
         if (backgroundTimerEndTime > currentTime) {
           startSessionTimer(
             currentCallback,
@@ -76,9 +76,8 @@ export function handleAppStateChangeForBackgroundTimer(nextAppState: string) {
         } else {
           currentCallback()
         }
-      }
-    } else {
-      stopSessionTimer(false)
+      } else {
+      stopSessionTimer()
     }
   } else {
     hideModal()

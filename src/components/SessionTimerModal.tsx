@@ -60,13 +60,6 @@ export class SessionTimerModal extends Component<ISessionTimerModalProps, ISessi
     AppState.addEventListener('change', handleAppStateChangeForBackgroundTimer)
   }
 
-  shouldComponentUpdate(
-    _: ISessionTimerModalProps,
-    { isShowModal: prevShowModal }: ISessionTimerModalStates
-  ) {
-    return this.state.isShowModal !== prevShowModal
-  }
-
   componentWillUnmount() {
     AppState.removeEventListener(
       'change',
