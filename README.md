@@ -4,11 +4,13 @@ A customizable session timer modal that times on the background. It won't work w
 
 ## Getting started
 
-`yarn add react-native-session-timer-modal react-native-background-timer moment react-native-modal`
+`yarn add react-native-session-timer-modal`
 
 ### Automatic Linking
 
 `react-native link react-native-background-timer`
+
+**note:** This is linking the dependent library `react-native-background-timer` instead of this library.
 
 ### Manual Linking
 
