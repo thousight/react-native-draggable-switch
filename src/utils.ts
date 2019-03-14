@@ -22,9 +22,7 @@ export const init = (props: ITimeUtilsInitPops) => {
   backgroundDuration = moment
     .duration(props.backgroundTime, 'minutes')
     .asMilliseconds()
-  modalDuration = moment
-    .duration(props.modalTime, 'minutes')
-    .asMilliseconds()
+  modalDuration = moment.duration(props.modalTime, 'minutes').asMilliseconds()
   defaultCallback = props.defaultCallback
   hideModal = props.hideModal
   onTimerEnd = props.onTimerEnd
@@ -62,21 +60,25 @@ export const stopSessionTimer = (isStillAuthed: boolean = true) => {
 
 export function handleAppStateChangeForBackgroundTimer(nextAppState: string) {
   if (authenticated) {
-    if (nextAppState === 'active' && currentCallback === defaultCallback && backgroundTimerEndTime) {
+    if (
+      nextAppState === 'active' &&
+      currentCallback === defaultCallback &&
+      backgroundTimerEndTime
+    ) {
       // only handle background timer
-        const currentTime = getCurrentTimeStamp()
+      const currentTime = getCurrentTimeStamp()
 
-        if (backgroundTimerEndTime > currentTime) {
-          startSessionTimer(
-            currentCallback,
-            backgroundTimerEndTime - currentTime,
-          )
-        } else if (modalDuration + backgroundTimerEndTime - currentTime <= 0 && onTimerEnd) {
-          onTimerEnd()
-        } else {
-          currentCallback()
-        }
+      if (backgroundTimerEndTime > currentTime) {
+        startSessionTimer(currentCallback, backgroundTimerEndTime - currentTime)
+      } else if (
+        modalDuration + backgroundTimerEndTime - currentTime <= 0 &&
+        onTimerEnd
+      ) {
+        onTimerEnd()
       } else {
+        currentCallback()
+      }
+    } else {
       stopSessionTimer()
     }
   } else {

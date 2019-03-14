@@ -35,23 +35,26 @@ const defaultProps = {
   confirmText: 'Confirm',
   cancelText: 'Cancel',
   buttonTextStyle: null,
-  onModalConfirmPress: () => {},
-  onModalCancelPress: () => {},
-  onTimerEnd: () => {},
+  onModalConfirmPress: () => null,
+  onModalCancelPress: () => null,
+  onTimerEnd: () => null,
 }
 
 interface ISessionTimerModalStates {
   isShowModal: boolean
 }
 
-export class SessionTimerModal extends Component<ISessionTimerModalProps, ISessionTimerModalStates> {
-  static defaultProps = defaultProps
+export class SessionTimerModal extends Component<
+  ISessionTimerModalProps,
+  ISessionTimerModalStates
+> {
+  public static defaultProps = defaultProps
 
-  state = {
+  public state = {
     isShowModal: false,
   }
 
-  componentDidMount() {
+  public componentDidMount() {
     init({
       ...this.props,
       defaultCallback: this.toggleSessionTimerModal,
@@ -60,20 +63,19 @@ export class SessionTimerModal extends Component<ISessionTimerModalProps, ISessi
     AppState.addEventListener('change', handleAppStateChangeForBackgroundTimer)
   }
 
-  componentWillUnmount() {
+  public componentWillUnmount() {
     AppState.removeEventListener(
       'change',
       handleAppStateChangeForBackgroundTimer,
     )
   }
 
-  hideModal = () => this.setState({ isShowModal: false })
+  public hideModal = () => this.setState({ isShowModal: false })
 
-  toggleSessionTimerModal = () => this.setState(({ isShowModal }) => ({
-    isShowModal: !isShowModal
-  }))
+  public toggleSessionTimerModal = () =>
+    this.setState(({ isShowModal }) => ({ isShowModal: !isShowModal }))
 
-  render() {
+  public render() {
     const { isShowModal } = this.state
     const { children } = this.props
 

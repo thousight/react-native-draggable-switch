@@ -1,0 +1,14 @@
+{
+  "extends": ["tslint-react", "tslint-config-prettier", "tslint:recommended"],
+  "rules": {
+    "no-console": false,
+    "semicolon": false,
+    "ordered-imports": false,
+    "object-literal-sort-keys": false,
+    "quotemark": [true, "single", "jsx-double"]
+  },
+  "rulesDirectory": ["tslint-plugin-prettier"],
+  "linterOptions": {
+    "exclude": ["./node_modules", "./lib"]
+  }
+}

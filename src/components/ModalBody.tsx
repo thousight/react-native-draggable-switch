@@ -49,43 +49,41 @@ let defaultModalTimeDuration: Duration
 let modalEndtime: number = 0
 
 export class ModalBody extends Component<IModalBodyProps, IModalBodyStates> {
-  state = {
+  public state = {
     countdown: moment.duration(this.props.modalTime, 'minutes'),
   }
 
-  componentDidMount() {
+  public componentDidMount() {
     AppState.addEventListener('change', this.handleAppStateChangeForCountdown)
-    defaultModalTimeDuration = moment.duration(
-      this.props.modalTime,
-      'minutes',
-    )
-    modalEndtime = defaultModalTimeDuration.asMilliseconds() + getBackgroundTimerEndTime()
-    
+    defaultModalTimeDuration = moment.duration(this.props.modalTime, 'minutes')
+    modalEndtime =
+      defaultModalTimeDuration.asMilliseconds() + getBackgroundTimerEndTime()
+
     this.startCountdown()
   }
 
-  componentWillUnmount() {
+  public componentWillUnmount() {
     AppState.removeEventListener(
       'change',
       this.handleAppStateChangeForCountdown,
     )
   }
 
-  handleAppStateChangeForCountdown = (nextAppState: string) => {
+  public handleAppStateChangeForCountdown = (nextAppState: string) => {
     if (nextAppState === 'active') {
       this.startCountdown()
     }
   }
 
-  initializeSessionCountdown = (duration: number): Duration => {
+  public initializeSessionCountdown = (duration: number): Duration => {
     return duration >= 0
       ? moment.duration(duration, 'milliseconds')
       : defaultModalTimeDuration
   }
 
-  startCountdown = () => {
+  public startCountdown = () => {
     const duration = modalEndtime - getCurrentTimeStamp()
-    
+
     if (duration > 0) {
       this.setState(
         { countdown: this.initializeSessionCountdown(duration) },
@@ -96,7 +94,8 @@ export class ModalBody extends Component<IModalBodyProps, IModalBodyStates> {
     }
   }
 
-  handleCountDown = () => this.setState(
+  public handleCountDown = () =>
+    this.setState(
       ({ countdown }) => ({ countdown: countdown.subtract(1, 's') }),
       () => {
         if (this.state.countdown.asMilliseconds() <= 0) {
@@ -105,7 +104,10 @@ export class ModalBody extends Component<IModalBodyProps, IModalBodyStates> {
       },
     )
 
-  handleSessionTimeout = (isStillAuthed: boolean, manualPress?: boolean) => {
+  public handleSessionTimeout = (
+    isStillAuthed: boolean,
+    manualPress?: boolean,
+  ) => {
     this.resetCountdown()
     this.props.hideModal()
     stopSessionTimer(isStillAuthed)
@@ -114,26 +116,26 @@ export class ModalBody extends Component<IModalBodyProps, IModalBodyStates> {
     }
   }
 
-  handleYesBtnPress = () => {
+  public handleYesBtnPress = () => {
     this.handleSessionTimeout(true, true)
     if (this.props.onModalConfirmPress) {
       setTimeout(this.props.onModalConfirmPress, 310)
     }
   }
 
-  handleNoBtnPress = () => {
+  public handleNoBtnPress = () => {
     this.handleSessionTimeout(false, true)
     if (this.props.onModalCancelPress) {
       setTimeout(this.props.onModalCancelPress, 310)
     }
   }
 
-  resetCountdown = () =>
+  public resetCountdown = () =>
     this.setState({
       countdown: this.initializeSessionCountdown(-1),
     })
 
-  render() {
+  public render() {
     const { countdown } = this.state
     const {
       containerStyle,
@@ -150,13 +152,16 @@ export class ModalBody extends Component<IModalBodyProps, IModalBodyStates> {
     return (
       <View style={[styles.modalContainer, containerStyle]}>
         <View style={[styles.textContainer, titleStyle]}>
-          <Text style={styles.title} accessible>
+          <Text style={styles.title} accessible={true}>
             {title}
           </Text>
-          <Text style={[styles.countdown, countdownTextStyle]} accessible>
+          <Text
+            style={[styles.countdown, countdownTextStyle]}
+            accessible={true}
+          >
             {formatCountdown(countdown)}
           </Text>
-          <Text style={[styles.desc, subtitleStyle]} accessible>
+          <Text style={[styles.desc, subtitleStyle]} accessible={true}>
             {subtitle}
           </Text>
         </View>
@@ -165,13 +170,17 @@ export class ModalBody extends Component<IModalBodyProps, IModalBodyStates> {
             onPress={this.handleNoBtnPress}
             style={[styles.modalBtn, styles.noBtn]}
           >
-            <Text style={[styles.modalBtnText, buttonTextStyle]}>{cancelText}</Text>
+            <Text style={[styles.modalBtnText, buttonTextStyle]}>
+              {cancelText}
+            </Text>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={this.handleYesBtnPress}
             style={styles.modalBtn}
           >
-            <Text style={[styles.modalBtnText, buttonTextStyle]}>{confirmText}</Text>
+            <Text style={[styles.modalBtnText, buttonTextStyle]}>
+              {confirmText}
+            </Text>
           </TouchableOpacity>
         </View>
       </View>
