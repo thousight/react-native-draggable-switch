@@ -1,6 +1,12 @@
 # React Native Session Timer Modal
 
-A customizable session timer modal that times on the background. It won't work with Expo since it makes use of [react-native-background-timer](https://github.com/ocetnik/react-native-background-timer) which requires native library linking.
+A customizable session timer modal that times even when the app is on the background (not really, it uses timestamp to work around the iOS background limitation). It won't work with Expo since it makes use of [react-native-background-timer](https://github.com/ocetnik/react-native-background-timer) which requires native library linking.
+
+## Demo
+
+**note:** This demo has a backgroundTime of 0.07 minutes and a modalTime of 10 minutes.
+
+![GIF DEMO](https://i.imgur.com/igQmCdN.gif)
 
 ## Getting started
 
