@@ -6,7 +6,7 @@ A customizable session timer modal that times even when the app is on the backgr
 
 **note:** This demo has a backgroundTime of 0.07 minutes and a modalTime of 10 minutes.
 
-![GIF DEMO](https://i.imgur.com/igQmCdN.gif)
+![GIF DEMO](https://i.imgur.com/eCsuJDz.gif)
 
 ## Getting started
 
