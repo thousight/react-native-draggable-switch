@@ -1,4 +1,5 @@
 import { TextStyle, ViewStyle } from 'react-native'
+import { ModalProps } from 'react-native-modal'
 
 export interface ISessionTimerModalProps {
   backgroundTime?: number
@@ -9,29 +10,30 @@ export interface ISessionTimerModalProps {
   subtitle?: string
   subtitleStyle?: TextStyle
   countdownTextStyle?: TextStyle
-  confirmText?: string
-  cancelText?: string
-  buttonTextStyle?: TextStyle
-  onModalConfirmPress?(): any
-  onModalCancelPress?(): any
+  buttonsContainerStyle?: ViewStyle
+  modalConfigs?: ModalProps
+  confirmButtonConfigs: IButtonConfigs
+  cancelButtonConfigs: IButtonConfigs
   onTimerEnd?(): any
 }
 
 export const defaultProps = {
   backgroundTime: 9,
   modalTime: 1,
-  containerStyle: null,
   title: '',
-  titleStyle: null,
   subtitle: '',
-  subtitleStyle: null,
-  countdownTextStyle: null,
-  confirmText: 'Confirm',
-  cancelText: 'Cancel',
-  buttonTextStyle: null,
-  onModalConfirmPress: () => null,
-  onModalCancelPress: () => null,
+  modalConfigs: {},
+  confirmButtonConfigs: {},
+  cancelButtonConfigs: {},
   onTimerEnd: () => null,
+}
+
+export interface IButtonConfigs {
+  buttonStyle?: ViewStyle
+  buttonViewStyle?: ViewStyle
+  textStyle?: TextStyle
+  text?: string
+  onPress?(): any
 }
 
 export interface ISessionTimerModalStates {

@@ -36,12 +36,13 @@ Follow [this readme](https://github.com/ocetnik/react-native-background-timer/bl
          titleStyle={styles.title}
          subtitle="Your session will be ending soon! Wanna stay in the app?"
          subtitleStyle={styles.subtitle}
-         countdownTextStyle={styles.countdown}
-         confirmText="YES"
-         cancelText="NO"
-         buttonTextStyle={styles.buttonText}
-         onModalConfirmPress={() => Alert.alert('Yes Pressed')}
-         onModalCancelPress={() => Alert.alert('No Pressed')}
+         confirmButtonConfigs={{
+           text: 'Oh yea'
+         }}
+         cancelButtonConfigs={{
+           text: 'Log me out',
+           textStyle: styles.cancelText
+         }}
          onTimerEnd={() => Alert.alert('Timer End')}
        >
          <App />
@@ -51,23 +52,36 @@ Follow [this readme](https://github.com/ocetnik/react-native-background-timer/bl
    ...
    ```
 
-2. Call `startSessionTimer()` when your app finished logging the user in, and `stopSessionTimer()` when the user logs out.
+2. Call `startSessionTimer()` when your app finished logging the user in and when the refresh token call finised.
 
-## Props
+3. Call `stopSessionTimer()` when the user logs out.
 
-| Prop                | Explanation                                                                                                                                                                                                                                                                           | Type      | Default   |
-| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- | --------- |
-| backgroundTime      | The number of **minutes** that the modal will be counting on the background, specifically it is the time period between `startSessionTimer` is called and the counting modal shows up.                                                                                                | number    | 9         |
-| modalTime           | The number of **minutes** that the modal will be counting after the modal shows up.                                                                                                                                                                                                   | number    | 1         |
-| title               | Title of the modal.                                                                                                                                                                                                                                                                   | string    | ''        |
-| subtitle            | Subtitle of the modal.                                                                                                                                                                                                                                                                | string    | ''        |
-| confirmText         | Text for the confirm button.                                                                                                                                                                                                                                                          | string    | 'Confirm' |
-| cancelText          | Text for the cancel button.                                                                                                                                                                                                                                                           | string    | 'Cancel'  |
-| onModalConfirmPress | The callback function called when confirm button is pressed, this is usually the place to call refresh user token. Make sure to call `startSessionTimer` at the end of the successful token refresh, since pressing any buttons on the modal will stop the timer for better accuracy. | function  | () => {}  |
-| onModalCancelPress  | The callback function called when cancel button is pressed, this is usually the place to call user log out.                                                                                                                                                                           | function  | () => {}  |
-| onTimerEnd          | The callback function called when the modal counts to 0 seconds if the user is in foreground, and when the user puts your app back to foreground, from background, after the modal countdown is supposed to end.                                                                      | function  | () => {}  |
-| containerStyle      | The styles for the modal card.                                                                                                                                                                                                                                                        | ViewStyle | null      |
-| titleStyle          | The styles for the title.                                                                                                                                                                                                                                                             | TextStyle | null      |
-| subtitleStyle       | The styles for the subtitle.                                                                                                                                                                                                                                                          | TextStyle | null      |
-| countdownTextStyle  | The styles for the countdown number.                                                                                                                                                                                                                                                  | TextStyle | null      |
-| buttonTextStyle     | The styles for the cancel and confirm button texts.                                                                                                                                                                                                                                   | TextStyle | null      |
+## Props Definitions
+
+### `<SessionTimerModal />`
+
+| Prop                  | Explanation                                                                                                                                                                            | Type                                                  | Default    |
+| --------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------- | ---------- |
+| backgroundTime        | The number of **minutes** that the modal will be counting on the background, specifically it is the time period between `startSessionTimer` is called and the counting modal shows up. | number                                                | 9          |
+| modalTime             | The number of **minutes** that the modal will be counting after the modal shows up.                                                                                                    | number                                                | 1          |
+| title                 | Title of the modal.                                                                                                                                                                    | string                                                | ''         |
+| subtitle              | Subtitle of the modal.                                                                                                                                                                 | string                                                | ''         |
+| containerStyle        | The styles for the modal card.                                                                                                                                                         | ViewStyle                                             | null       |
+| titleStyle            | The styles for the title.                                                                                                                                                              | TextStyle                                             | null       |
+| subtitleStyle         | The styles for the subtitle.                                                                                                                                                           | TextStyle                                             | null       |
+| countdownTextStyle    | The styles for the countdown number.                                                                                                                                                   | TextStyle                                             | null       |
+| buttonsContainerStyle | The styles for the the buttons row container.                                                                                                                                          | ViewStyle                                             | null       |
+| modalConfigs          | Props for the [react-native-modal](https://github.com/react-native-community/react-native-modal#available-props), pass them down as an object.                                         | ModalProps                                            | null       |
+| cancelButtonConfigs   | The configurations for cancel button, the left one.                                                                                                                                    | IButtonConfigs (see below for the definition of this) | {}         |
+| confirmButtonConfigs  | The configurations for confirm button, the right one.                                                                                                                                  | IButtonConfigs (see below for the definition of this) | {}         |
+| onTimerEnd            | The callback function called when the modal counts to 0 seconds.                                                                                                                       | function                                              | () => null |
+
+### `IButtonConfigs`
+
+| Prop            | Explanation                                                                                                                                                  | Type      | Default    |
+| --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------- | ---------- |
+| buttonStyle     | The styles for the `TouchableOpacity` button.                                                                                                                | ViewStyle | null       |
+| buttonViewStyle | The styles for the single `View` within `TouchableOpacity` button.                                                                                           | ViewStyle | null       |
+| textStyle       | The styles for the button text.                                                                                                                              | TextStyle | null       |
+| text            | Text of the button.                                                                                                                                          | string    | ''         |
+| onPress         | Callback when the user taps the button, best place to call your refresh token or log out function depending on how you setup your cancel and confirm button. | function  | () => null |

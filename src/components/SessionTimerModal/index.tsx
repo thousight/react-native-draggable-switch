@@ -46,16 +46,17 @@ export default class SessionTimerModal extends Component<
 
   render() {
     const { isShowModal } = this.state
-    const { children } = this.props
+    const { children, modalConfigs } = this.props
 
     return (
       <View style={styles.container} pointerEvents="box-none">
         {children}
 
         <Modal
-          isVisible={isShowModal}
           useNativeDriver={true}
           hideModalContentWhileAnimating={true}
+          {...modalConfigs}
+          isVisible={isShowModal}
         >
           <ModalBody {...this.props} hideModal={this.hideModal} />
         </Modal>

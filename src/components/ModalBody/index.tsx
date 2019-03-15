@@ -15,6 +15,7 @@ import styles from './styles'
 
 let defaultModalTimeDuration: Duration
 let modalEndtime: number = 0
+let functionDebounceTime: number = 310
 
 export default class ModalBody extends Component<
   IModalBodyProps,
@@ -25,10 +26,22 @@ export default class ModalBody extends Component<
   }
 
   componentDidMount() {
+    const { modalConfigs } = this.props
     AppState.addEventListener('change', this.handleAppStateChangeForCountdown)
     defaultModalTimeDuration = moment.duration(this.props.modalTime, 'minutes')
     modalEndtime =
       defaultModalTimeDuration.asMilliseconds() + getBackgroundTimerEndTime()
+
+    if (modalConfigs) {
+      // Functions are called 10ms after the modal is hidden
+      functionDebounceTime =
+        Math.max(
+          modalConfigs.animationInTiming || 0,
+          modalConfigs.animationOutTiming || 0,
+          modalConfigs.backdropTransitionInTiming || 0,
+          modalConfigs.backdropTransitionOutTiming || 0,
+        ) + 10
+    }
 
     this.startCountdown()
   }
@@ -80,21 +93,27 @@ export default class ModalBody extends Component<
     this.props.hideModal()
     stopSessionTimer(isStillAuthed)
     if (this.props.onTimerEnd && !isStillAuthed && !manualPress) {
-      setTimeout(this.props.onTimerEnd, 310)
+      setTimeout(this.props.onTimerEnd, functionDebounceTime)
     }
   }
 
   handleYesBtnPress = () => {
+    const {
+      confirmButtonConfigs: { onPress },
+    } = this.props
     this.handleSessionTimeout(true, true)
-    if (this.props.onModalConfirmPress) {
-      setTimeout(this.props.onModalConfirmPress, 310)
+    if (onPress) {
+      setTimeout(onPress, functionDebounceTime)
     }
   }
 
   handleNoBtnPress = () => {
+    const {
+      cancelButtonConfigs: { onPress },
+    } = this.props
     this.handleSessionTimeout(false, true)
-    if (this.props.onModalCancelPress) {
-      setTimeout(this.props.onModalCancelPress, 310)
+    if (onPress) {
+      setTimeout(onPress, functionDebounceTime)
     }
   }
 
@@ -112,15 +131,15 @@ export default class ModalBody extends Component<
       subtitle,
       subtitleStyle,
       countdownTextStyle,
-      cancelText,
-      confirmText,
-      buttonTextStyle,
+      buttonsContainerStyle,
+      cancelButtonConfigs,
+      confirmButtonConfigs,
     } = this.props
 
     return (
       <View style={[styles.modalContainer, containerStyle]}>
-        <View style={[styles.textContainer, titleStyle]}>
-          <Text style={styles.title} accessible={true}>
+        <View style={styles.textContainer}>
+          <Text style={[styles.title, titleStyle]} accessible={true}>
             {title}
           </Text>
           <Text
@@ -129,26 +148,34 @@ export default class ModalBody extends Component<
           >
             {formatCountdown(countdown)}
           </Text>
-          <Text style={[styles.desc, subtitleStyle]} accessible={true}>
+          <Text style={[styles.subtitle, subtitleStyle]} accessible={true}>
             {subtitle}
           </Text>
         </View>
-        <View style={styles.btnRow}>
-          <TouchableOpacity
-            onPress={this.handleNoBtnPress}
-            style={[styles.modalBtn, styles.noBtn]}
-          >
-            <Text style={[styles.modalBtnText, buttonTextStyle]}>
-              {cancelText}
-            </Text>
-          </TouchableOpacity>
+        <View style={[styles.btnRow, buttonsContainerStyle]}>
           <TouchableOpacity
             onPress={this.handleYesBtnPress}
-            style={styles.modalBtn}
+            style={[styles.modalBtn, cancelButtonConfigs.buttonStyle]}
           >
-            <Text style={[styles.modalBtnText, buttonTextStyle]}>
-              {confirmText}
-            </Text>
+            <View style={cancelButtonConfigs.buttonViewStyle}>
+              <Text
+                style={[styles.modalBtnText, cancelButtonConfigs.textStyle]}
+              >
+                {cancelButtonConfigs.text}
+              </Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={this.handleNoBtnPress}
+            style={[styles.modalBtn, confirmButtonConfigs.buttonStyle]}
+          >
+            <View style={confirmButtonConfigs.buttonViewStyle}>
+              <Text
+                style={[styles.modalBtnText, confirmButtonConfigs.textStyle]}
+              >
+                {confirmButtonConfigs.text}
+              </Text>
+            </View>
           </TouchableOpacity>
         </View>
       </View>
