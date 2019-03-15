@@ -1,12 +1,7 @@
 import BackgroundTimer from 'react-native-background-timer'
-import moment from 'moment'
+import moment, { Duration } from 'moment'
 
-import { ISessionTimerModalProps } from './components/SessionTimerModal'
-
-interface ITimeUtilsInitPops extends ISessionTimerModalProps {
-  defaultCallback(): any
-  hideModal(): any
-}
+import { ITimeUtilsInitProps } from './components/SessionTimerModal/types'
 
 let backgroundDuration: number = moment.duration(27, 'minutes').asMilliseconds()
 let modalDuration: number = moment.duration(3, 'minutes').asMilliseconds()
@@ -18,7 +13,7 @@ let hideModal: any = null
 let timeout: number
 let authenticated: boolean = false
 
-export const init = (props: ITimeUtilsInitPops) => {
+export const init = (props: ITimeUtilsInitProps) => {
   backgroundDuration = moment
     .duration(props.backgroundTime, 'minutes')
     .asMilliseconds()
@@ -45,7 +40,6 @@ export const startSessionTimer = (cb: any, interval: number) => {
     return
   }
 
-  // Reset before start
   stopSessionTimer()
   BackgroundTimer.start()
   timeout = BackgroundTimer.setInterval(currentCallback, duration)
@@ -58,14 +52,15 @@ export const stopSessionTimer = (isStillAuthed: boolean = true) => {
   authenticated = isStillAuthed
 }
 
-export function handleAppStateChangeForBackgroundTimer(nextAppState: string) {
+export const handleAppStateChangeForBackgroundTimer = (
+  nextAppState: string,
+) => {
   if (authenticated) {
     if (
       nextAppState === 'active' &&
       currentCallback === defaultCallback &&
       backgroundTimerEndTime
     ) {
-      // only handle background timer
       const currentTime = getCurrentTimeStamp()
 
       if (backgroundTimerEndTime > currentTime) {
@@ -84,4 +79,24 @@ export function handleAppStateChangeForBackgroundTimer(nextAppState: string) {
   } else {
     hideModal()
   }
+}
+
+export const formatCountdown = (countdown: Duration) => {
+  let result = ''
+
+  if (countdown && moment.isDuration(countdown)) {
+    let minutes: any = countdown.minutes()
+    let seconds: any = countdown.seconds()
+
+    if (minutes < 10) {
+      minutes = `0${minutes}`
+    }
+    if (seconds < 10) {
+      seconds = `0${seconds}`
+    }
+
+    result = `${minutes}:${seconds}`
+  }
+
+  return result
 }

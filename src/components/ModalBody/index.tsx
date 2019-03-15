@@ -1,12 +1,5 @@
 import React, { Component } from 'react'
-import {
-  View,
-  StyleSheet,
-  TouchableOpacity,
-  Platform,
-  AppState,
-  Text,
-} from 'react-native'
+import { View, TouchableOpacity, AppState, Text } from 'react-native'
 import moment, { Duration } from 'moment'
 
 import {
@@ -14,46 +7,24 @@ import {
   stopSessionTimer,
   getBackgroundTimerEndTime,
   getCurrentTimeStamp,
-} from '../utils'
-import { ISessionTimerModalProps } from './SessionTimerModal'
+  formatCountdown,
+} from '../../utils'
 
-interface IModalBodyProps extends ISessionTimerModalProps {
-  hideModal(): void
-}
-
-interface IModalBodyStates {
-  countdown: Duration
-}
-
-const formatCountdown = (countdown: Duration) => {
-  let result = ''
-
-  if (countdown && moment.isDuration(countdown)) {
-    let minutes: any = countdown.minutes()
-    let seconds: any = countdown.seconds()
-
-    if (minutes < 10) {
-      minutes = `0${minutes}`
-    }
-    if (seconds < 10) {
-      seconds = `0${seconds}`
-    }
-
-    result = `${minutes}:${seconds}`
-  }
-
-  return result
-}
+import { IModalBodyProps, IModalBodyStates } from './types'
+import styles from './styles'
 
 let defaultModalTimeDuration: Duration
 let modalEndtime: number = 0
 
-export class ModalBody extends Component<IModalBodyProps, IModalBodyStates> {
-  public state = {
+export default class ModalBody extends Component<
+  IModalBodyProps,
+  IModalBodyStates
+> {
+  state = {
     countdown: moment.duration(this.props.modalTime, 'minutes'),
   }
 
-  public componentDidMount() {
+  componentDidMount() {
     AppState.addEventListener('change', this.handleAppStateChangeForCountdown)
     defaultModalTimeDuration = moment.duration(this.props.modalTime, 'minutes')
     modalEndtime =
@@ -62,26 +33,26 @@ export class ModalBody extends Component<IModalBodyProps, IModalBodyStates> {
     this.startCountdown()
   }
 
-  public componentWillUnmount() {
+  componentWillUnmount() {
     AppState.removeEventListener(
       'change',
       this.handleAppStateChangeForCountdown,
     )
   }
 
-  public handleAppStateChangeForCountdown = (nextAppState: string) => {
+  handleAppStateChangeForCountdown = (nextAppState: string) => {
     if (nextAppState === 'active') {
       this.startCountdown()
     }
   }
 
-  public initializeSessionCountdown = (duration: number): Duration => {
+  initializeSessionCountdown = (duration: number): Duration => {
     return duration >= 0
       ? moment.duration(duration, 'milliseconds')
       : defaultModalTimeDuration
   }
 
-  public startCountdown = () => {
+  startCountdown = () => {
     const duration = modalEndtime - getCurrentTimeStamp()
 
     if (duration > 0) {
@@ -94,7 +65,7 @@ export class ModalBody extends Component<IModalBodyProps, IModalBodyStates> {
     }
   }
 
-  public handleCountDown = () =>
+  handleCountDown = () =>
     this.setState(
       ({ countdown }) => ({ countdown: countdown.subtract(1, 's') }),
       () => {
@@ -104,10 +75,7 @@ export class ModalBody extends Component<IModalBodyProps, IModalBodyStates> {
       },
     )
 
-  public handleSessionTimeout = (
-    isStillAuthed: boolean,
-    manualPress?: boolean,
-  ) => {
+  handleSessionTimeout = (isStillAuthed: boolean, manualPress?: boolean) => {
     this.resetCountdown()
     this.props.hideModal()
     stopSessionTimer(isStillAuthed)
@@ -116,26 +84,26 @@ export class ModalBody extends Component<IModalBodyProps, IModalBodyStates> {
     }
   }
 
-  public handleYesBtnPress = () => {
+  handleYesBtnPress = () => {
     this.handleSessionTimeout(true, true)
     if (this.props.onModalConfirmPress) {
       setTimeout(this.props.onModalConfirmPress, 310)
     }
   }
 
-  public handleNoBtnPress = () => {
+  handleNoBtnPress = () => {
     this.handleSessionTimeout(false, true)
     if (this.props.onModalCancelPress) {
       setTimeout(this.props.onModalCancelPress, 310)
     }
   }
 
-  public resetCountdown = () =>
+  resetCountdown = () =>
     this.setState({
       countdown: this.initializeSessionCountdown(-1),
     })
 
-  public render() {
+  render() {
     const { countdown } = this.state
     const {
       containerStyle,
@@ -187,60 +155,3 @@ export class ModalBody extends Component<IModalBodyProps, IModalBodyStates> {
     )
   }
 }
-
-const styles = StyleSheet.create({
-  btnRow: {
-    borderTopColor: '#CCCCCC',
-    borderTopWidth: 0.5,
-    flexDirection: 'row',
-  },
-  countdown: {
-    fontSize: 30,
-    textAlign: 'center',
-  },
-  desc: {
-    marginBottom: 12,
-    textAlign: 'center',
-  },
-  modalBtn: {
-    alignItems: 'center',
-    ...Platform.select({
-      android: {
-        borderTopColor: '#CCCCCC',
-        borderTopWidth: 0.5,
-      },
-    }),
-    width: '50%',
-  },
-  modalBtnText: {
-    color: 'blue',
-    paddingVertical: 10,
-  },
-  modalContainer: {
-    alignSelf: 'center',
-    backgroundColor: '#FFFFFF',
-    borderRadius: 12,
-    marginHorizontal: 25,
-    maxWidth: 250,
-  },
-  noBtn: {
-    ...Platform.select({
-      android: {
-        borderRightWidth: 1,
-      },
-      ios: {
-        borderRightWidth: 0.5,
-      },
-    }),
-    borderRightColor: '#CCCCCC',
-  },
-
-  textContainer: {
-    paddingHorizontal: 20,
-    paddingTop: 20,
-  },
-  title: {
-    marginBottom: 3,
-    textAlign: 'center',
-  },
-})
