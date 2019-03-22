@@ -2,7 +2,6 @@
 language: node_js
 node_js:
   - "11.10.1"
-  - lts/*
 cache:
   directories:
     - ~/.npm
@@ -16,7 +15,7 @@ jobs:
         - yarn build
     - stage: deploy
       if: branch = master AND (NOT type = pull_request)
-      node_js: lts/*
       script:
         - yarn test:coveralls
+        - yarn build
         - yarn semantic-release
