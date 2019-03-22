@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
+    "declaration": true,
     "esModuleInterop": true,
     "jsx": "react",
     "lib": ["esnext", "es2015"],
@@ -8,8 +8,7 @@
     "outDir": "./lib",
     "pretty": true,
     "resolveJsonModule": true,
-    "sourceMap": true,
-    "target": "es6",
+    "target": "es5",
     "types": ["jest"]
   },
   "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.test.tsx"],
