@@ -8,10 +8,9 @@
 
 A stateless, JS-only, animated, draggable switch component that maintains itself at 60fps.
 
-<!--
 ## Demo
 
-![GIF DEMO](https://i.imgur.com/eCsuJDz.gif) -->
+![GIF DEMO](https://i.imgur.com/lcrZukf.gif)
 
 ## Getting started
 
