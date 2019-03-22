@@ -121,6 +121,7 @@ describe('Switch', () => {
       // circleProps.onResponderGrant(fakeGestureEvent)
       // circleProps.onResponderMove(fakeGestureEvent)
       instance.onCircleTapIn()
+      instance.circleAnimations.direction.setValue(0)
       circleProps.onResponderRelease(fakeGestureEvent)
     })
 
