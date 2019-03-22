@@ -1,5 +1,5 @@
 {
-  "name": "react-native-session-timer-modal",
+  "name": "react-native-draggable-switch",
   "version": "1.0.0",
   "description": "A customizable session timer modal that times on the background.",
   "main": "./lib/index.js",
@@ -9,8 +9,9 @@
   ],
   "keywords": [
     "react-native",
-    "session-timer",
-    "modal"
+    "switch",
+    "animated",
+    "draggble"
   ],
   "author": "thousight",
   "license": "MIT",
@@ -24,6 +25,10 @@
     "test:coveralls": "yarn test --coverage --coverageReporters=text-lcov | coveralls"
   },
   "devDependencies": {
+    "@semantic-release/commit-analyzer": "^6.1.0",
+    "@semantic-release/git": "^7.0.8",
+    "@semantic-release/npm": "^5.1.4",
+    "@semantic-release/release-notes-generator": "^7.1.4",
     "@types/enzyme": "^3.9.1",
     "@types/enzyme-adapter-react-16": "^1.0.5",
     "@types/jest": "^24.0.11",
@@ -39,6 +44,7 @@
     "react": "^16.8.4",
     "react-dom": "^16.8.5",
     "react-native": "^0.59.0",
+    "semantic-release": "^15.13.3",
     "ts-jest": "^24.0.0",
     "tslint": "^5.14.0",
     "tslint-config-prettier": "^1.18.0",
