@@ -1,4 +1,4 @@
-import SessionTimerModal from './components/SessionTimerModal'
+import Switch from './Switch'
 
-export { startSessionTimer, stopSessionTimer } from './utils'
-export default SessionTimerModal
+export { ISwitchProps } from './types'
+export default Switch
