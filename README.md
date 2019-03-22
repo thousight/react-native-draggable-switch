@@ -1,3 +1,4 @@
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/2d08b8ef83bd44bdbd8ce5fe94b94758)](https://app.codacy.com/app/thousight/react-native-draggable-switch?utm_source=github.com&utm_medium=referral&utm_content=thousight/react-native-draggable-switch&utm_campaign=Badge_Grade_Dashboard)
 [![Build Status](https://travis-ci.org/thousight/react-native-draggable-switch.svg?branch=master)](https://travis-ci.org/thousight/react-native-draggable-switch)
 [![Coverage Status](https://coveralls.io/repos/github/thousight/react-native-draggable-switch/badge.svg?branch=master)](https://coveralls.io/github/thousight/react-native-draggable-switch?branch=master)
 
