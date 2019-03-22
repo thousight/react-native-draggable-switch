@@ -1,13 +1,14 @@
 {
   "name": "react-native-draggable-switch",
   "version": "1.0.0",
-  "description": "A customizable session timer modal that times on the background.",
+  "description": "A stateless, JS-only, animated, draggable switch component that maintains itself at 60fps.",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "files": [
-    "lib/**/*"
+    "lib"
   ],
   "keywords": [
+    "react",
     "react-native",
     "switch",
     "animated",
@@ -15,6 +16,10 @@
   ],
   "author": "thousight",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thousight/react-native-draggable-switch.git"
+  },
   "scripts": {
     "build": "rm -rf ./lib && tsc",
     "lint-staged": "lint-staged",
