@@ -101,7 +101,9 @@ export default class Switch extends Component<ISwitchProps> {
   onAnimationFinished = (animationToValue: number, newValue: boolean) => () => {
     this.circleAnimations.direction.setValue(animationToValue)
     this.circleAnimations.prevDirection = animationToValue
-    this.props.onValueChange(newValue)
+    if (this.props.value !== newValue) {
+      this.props.onValueChange(newValue)
+    }
   }
 
   toggle = (newValue: boolean) => {
