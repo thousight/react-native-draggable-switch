@@ -26,6 +26,7 @@ export default class Switch extends Component<ISwitchProps> {
 
   circleAnimations = {
     direction: new Animated.Value(-1 * this.boundary),
+    prevDirection: -1 * this.boundary,
     size: new Animated.Value(0),
   }
 
@@ -80,7 +81,10 @@ export default class Switch extends Component<ISwitchProps> {
 
     // If Circle didn't move, meaning user simply tapped on it
     // without dragging, then treat it as onPress()
-    if (direction === 0) {
+    if (
+      Math.abs(direction) < 1 ||
+      this.circleAnimations.prevDirection === direction
+    ) {
       return this.toggle(!this.props.value)
     }
 
@@ -96,6 +100,7 @@ export default class Switch extends Component<ISwitchProps> {
 
   onAnimationFinished = (animationToValue: number, newValue: boolean) => () => {
     this.circleAnimations.direction.setValue(animationToValue)
+    this.circleAnimations.prevDirection = animationToValue
     this.props.onValueChange(newValue)
   }
 
