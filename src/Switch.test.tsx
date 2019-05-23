@@ -125,6 +125,13 @@ describe('Switch', () => {
       circleProps.onResponderRelease(fakeGestureEvent)
     })
 
+    it('can tap on the background without crash', () => {
+      rendered
+        .find('TouchableWithoutFeedback')
+        .first()
+        .simulate('press')
+    })
+
     it('can be dragged without crash', () => {
       const circleProps = rendered
         .find('AnimatedComponent')
