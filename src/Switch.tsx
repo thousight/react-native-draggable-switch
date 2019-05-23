@@ -1,5 +1,12 @@
 import React, { Component } from 'react'
-import { View, Animated, Easing, Platform, PanResponder } from 'react-native'
+import {
+  View,
+  Animated,
+  Easing,
+  Platform,
+  PanResponder,
+  TouchableWithoutFeedback,
+} from 'react-native'
 
 import { ISwitchProps, defaultProps } from './types'
 import styles from './styles'
@@ -106,6 +113,8 @@ export default class Switch extends Component<ISwitchProps> {
     }
   }
 
+  onBackgroundPress = () => this.toggle(!this.props.value)
+
   toggle = (newValue: boolean) => {
     const toValue = (newValue ? 1 : -1) * this.boundary
     return Animated.parallel([
@@ -149,23 +158,25 @@ export default class Switch extends Component<ISwitchProps> {
           },
         ]}
       >
-        <Animated.View
-          style={[
-            styles.activeBackground,
-            {
-              backgroundColor: disabled ? disabledColor : activeColor,
-              borderRadius: height,
-              opacity: Animated.divide(
-                circlePosition,
-                this.boundary,
-              ).interpolate({
-                inputRange: [0, 1],
-                outputRange: [0, 1],
-                extrapolate: 'clamp',
-              }),
-            },
-          ]}
-        />
+        <TouchableWithoutFeedback onPress={this.onBackgroundPress}>
+          <Animated.View
+            style={[
+              styles.activeBackground,
+              {
+                backgroundColor: disabled ? disabledColor : activeColor,
+                borderRadius: height,
+                opacity: Animated.divide(
+                  circlePosition,
+                  this.boundary,
+                ).interpolate({
+                  inputRange: [0, 1],
+                  outputRange: [0, 1],
+                  extrapolate: 'clamp',
+                }),
+              },
+            ]}
+          />
+        </TouchableWithoutFeedback>
 
         <Animated.View
           {...this.panResponder.panHandlers}

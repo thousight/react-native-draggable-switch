@@ -1,5 +1,12 @@
 import React from 'react'
-import { GestureResponderHandlers, GestureResponderEvent } from 'react-native'
+import {
+  GestureResponderHandlers,
+  GestureResponderEvent,
+  TouchableWithoutFeedbackProps,
+  TouchableWithoutFeedback,
+  Touchable,
+  TouchableWithoutFeedbackComponent,
+} from 'react-native'
 import { shallow, configure } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 
@@ -123,6 +130,13 @@ describe('Switch', () => {
       instance.onCircleTapIn()
       instance.circleAnimations.direction.setValue(0)
       circleProps.onResponderRelease(fakeGestureEvent)
+    })
+
+    it('can tap on the background without crash', () => {
+      rendered
+        .find('TouchableWithoutFeedback')
+        .first()
+        .simulate('press')
     })
 
     it('can be dragged without crash', () => {
