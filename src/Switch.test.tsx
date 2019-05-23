@@ -1,12 +1,5 @@
 import React from 'react'
-import {
-  GestureResponderHandlers,
-  GestureResponderEvent,
-  TouchableWithoutFeedbackProps,
-  TouchableWithoutFeedback,
-  Touchable,
-  TouchableWithoutFeedbackComponent,
-} from 'react-native'
+import { GestureResponderHandlers, GestureResponderEvent } from 'react-native'
 import { shallow, configure } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 
