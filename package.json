@@ -1,6 +1,6 @@
 {
   "name": "react-native-draggable-switch",
-  "version": "1.0.4",
+  "version": "1.1.0",
   "description": "A stateless, JS-only, animated, draggable switch component that maintains itself at 60fps.",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
