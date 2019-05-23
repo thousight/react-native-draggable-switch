@@ -3,7 +3,6 @@ import {
   View,
   Animated,
   Easing,
-  Platform,
   PanResponder,
   TouchableWithoutFeedback,
 } from 'react-native'
