@@ -48,7 +48,7 @@
     "prettier": "^1.16.4",
     "react": "^16.8.6",
     "react-dom": "^16.8.5",
-    "react-native": "^0.60.0",
+    "react-native": "^0.61.0",
     "semantic-release": "^15.13.3",
     "ts-jest": "^24.0.0",
     "tslint": "^5.14.0",
