@@ -43,7 +43,7 @@ export default class Switch extends Component<ISwitchProps> {
 
   debounce = null
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { circleStyle = {}, height, value } = this.props
     this.styleProps.circleMargin = circleStyle.margin
       ? parseFloat(circleStyle.margin.toString())
