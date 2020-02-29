@@ -1,19 +1,17 @@
 ---
 language: node_js
 node_js:
-  - "11.10.1"
+  - "13.8.0"
 cache:
   directories:
     - ~/.npm
     - .jest
-ignore:
-  - yarn.lock
 jobs:
   include:
     - stage: test
       script:
         - yarn tslint
-        - yarn test --ci
+        - yarn test:ci
         - yarn build
     - stage: deploy
       if: branch = master AND (NOT type = pull_request)
