@@ -6,6 +6,8 @@ cache:
   directories:
     - ~/.npm
     - .jest
+ignore:
+  - yarn.lock
 jobs:
   include:
     - stage: test
