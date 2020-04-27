@@ -47,7 +47,7 @@
     "husky": "^4.2.3",
     "jest": "^25.1.0",
     "lint-staged": "^10.0.8",
-    "prettier": "^1.19.1",
+    "prettier": "^2.0.0",
     "react": "^16.9.5",
     "react-dom": "^16.9.5",
     "react-native": "^0.61.5",
