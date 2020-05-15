@@ -52,7 +52,7 @@
     "react-dom": "^16.9.5",
     "react-native": "^0.61.5",
     "semantic-release": "^17.0.4",
-    "ts-jest": "^25.2.1",
+    "ts-jest": "^26.0.0",
     "tslint": "^5.14.0",
     "tslint-config-prettier": "^1.18.0",
     "tslint-plugin-prettier": "^2.0.1",
